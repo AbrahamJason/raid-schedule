@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>村雨老闆王團排程表</title>
+<style>
+:root{--bg:#faf7f2;--bar:#f5f1ea;--card:#fffdf9;--line:#e6dfd3;--ink:#1f1a14;--mute:#7d7468;--acc:#d05635;--accink:#fff;--chip:#d4f1e2;--chipink:#1c5a3d;--day:#fbe9b7;--dayink:#6b4a05;--full:#fcefe9;--dot:#d9a032;--pill:#efebe4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17140f;--bar:#1f1b15;--card:#1c1914;--line:#352f26;--ink:#f3ece1;--mute:#a1978a;--acc:#e0653f;--chip:#1f4a37;--chipink:#bdeed5;--day:#4a3b14;--dayink:#f6dc92;--full:#2b1b15;--pill:#2a251e}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+header{background:var(--bar);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{width:40px;height:40px;border-radius:10px;background:var(--acc);display:grid;place-items:center;flex:none}
+h1{font-size:1.15rem;margin:0;font-weight:800}
+.btn{border:0;background:var(--acc);color:var(--accink);padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:var(--pill);color:var(--ink)}
+.btn.danger{background:transparent;color:#c0392b;border:1px solid currentColor}
+:focus-visible{outline:3px solid var(--dot);outline-offset:2px}
+.tabs{display:flex;gap:2px;background:var(--pill);border-radius:999px;padding:5px;margin:20px 0 14px;overflow-x:auto}
+.tab{border:0;background:transparent;padding:8px 16px;border-radius:999px;cursor:pointer;color:var(--mute);white-space:nowrap;font-weight:500;display:flex;align-items:center;gap:6px}
+.tab[aria-selected="true"]{background:var(--card);color:var(--ink);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--dot)}
+.search{width:100%;padding:12px 16px 12px 44px;border:1px solid var(--line);border-radius:12px;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%237d7468' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='9' cy='9' r='6.5'/%3E%3Cpath d='m14 14 4 4'/%3E%3C/svg%3E") no-repeat 14px center}
+.list{margin:16px 0 40px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.row,.head{display:grid;grid-template-columns:56px 70px 1.3fr 1fr 2fr 40px;gap:12px;align-items:center;padding:14px 18px}
+.head{background:var(--bar);color:var(--mute);font-weight:600;font-size:.9rem;border-bottom:1px solid var(--line)}
+.row{border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row.full{background:var(--full)}
+.badge{background:var(--day);color:var(--dayink);border-radius:12px;padding:8px 6px;text-align:center;font-weight:700;font-size:.85rem;line-height:1.2}
+.time{font-weight:800;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.boss{font-weight:800;font-size:1.05rem;word-break:break-word}
+.tag{display:inline-block;margin-top:6px;background:var(--acc);color:var(--accink);border-radius:999px;padding:2px 12px;font-size:.85rem;font-weight:700}
+.host{display:flex;align-items:center;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.chip{background:var(--chip);color:var(--chipink);border-radius:999px;padding:4px 14px;font-size:.92rem}
+.cnt{color:var(--mute);font-size:.92rem}
+.full .cnt{color:var(--acc);font-weight:700}
+.edit{border:0;background:transparent;cursor:pointer;padding:8px;border-radius:8px;color:var(--mute)}
+.empty{padding:40px 18px;text-align:center;color:var(--mute)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);width:min(520px,calc(100% - 24px));padding:20px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog h2{margin:0 0 14px;font-size:1.1rem}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+.f{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.acts .sp{margin-right:auto}
+@media (max-width:720px){
+.head{display:none}
+.row{grid-template-columns:56px 1fr 40px;grid-template-areas:"d t e" "d b e" "h h h" "m m m";row-gap:6px;padding:14px}
+.row .badge{grid-area:d;align-self:start}
+.row .time{grid-area:t}.row .bw{grid-area:b}.row .host{grid-area:h}.row .chips{grid-area:m}.row .edit{grid-area:e}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap top">
+<div class="brand"><div class="logo" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19M4 9l5-5M20 9l-5-5"/></svg></div><h1>村雨老闆王團排程表</h1></div>
+<button class="btn" id="add">＋ 新增場次</button>
+</div></header>
+
+<main class="wrap">
+<div class="tabs" id="tabs" role="tablist" aria-label="依星期篩選"></div>
+<input class="search" id="q" type="search" placeholder="搜尋 Boss / 成員" aria-label="搜尋 Boss 或成員">
+<div class="list" id="list"></div>
+</main>
+
+<dialog id="dlg">
+<form method="dialog" id="form" onsubmit="return false">
+<h2 id="dt">新增場次</h2>
+<div class="two">
+<div><label for="fd">星期</label><select class="f" id="fd"></select></div>
+<div><label for="ft">時間</label><input class="f" id="ft" type="time" value="21:00" required></div>
+</div>
+<label for="fb">Boss 名稱</label><input class="f" id="fb" required>
+<label for="fh">邀請人</label><input class="f" id="fh">
+<label for="fm">參加成員（用逗號或換行分隔）</label><textarea class="f" id="fm" rows="3"></textarea>
+<label for="fx">人數上限</label><input class="f" id="fx" type="number" min="1" max="99" value="6">
+<label for="fp">團內密碼</label><input class="f" id="fp" type="password" autocomplete="off">
+<div id="err" role="alert" style="color:#c0392b;font-size:.9rem;margin-top:10px"></div>
+<div class="acts">
+<button type="button" class="btn danger sp" id="del" hidden>刪除</button>
+<button type="button" class="btn ghost" id="cancel">取消</button>
+<button type="button" class="btn" id="save">儲存</button>
+</div>
+</form>
+</dialog>
+
+<script>
+const DAYS=["","週一","週二","週三","週四","週五","週六","週日"];
+const KEY="raid-schedule-v1";
+const APP_URL="PASTE_APPS_SCRIPT_URL_HERE";
+let data=[],pwd="";
+try{pwd=localStorage.getItem("raid-pwd")||""}catch(e){}
+async function load(){
+ if(APP_URL.startsWith("PASTE")){$("list").innerHTML='<div class="empty">尚未設定資料來源網址（APP_URL）。</div>';return}
+ try{const r=await fetch(APP_URL);data=await r.json();render()}
+ catch(e){$("list").innerHTML='<div class="empty">無法讀取排程，請稍後重新整理。</div>'}
+}
+async function send(body){
+ const r=await fetch(APP_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+ return r.json();
+}
+function init(){load();setInterval(()=>{if(!$("dlg").open&&!document.hidden)load()},15000)}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today=(new Date().getDay()||7);
+let tab=0,editing=null;
+
+function renderTabs(){
+ $("tabs").innerHTML=["全部",...DAYS.slice(1)].map((n,i)=>
+  `<button class="tab" role="tab" aria-selected="${tab===i}" data-i="${i}">${n}${i===today?'<span class="dot" title="今天"></span>':''}</button>`).join("");
+}
+function render(){
+ const q=$("q").value.trim().toLowerCase();
+ const rows=data.filter(s=>(!tab||s.day===tab)&&(!q||(s.boss+s.host+s.members.join(" ")).toLowerCase().includes(q)))
+  .sort((a,b)=>a.day-b.day||a.time.localeCompare(b.time));
+ if(!rows.length){$("list").innerHTML='<div class="empty">沒有符合的場次。按「＋ 新增場次」建立第一場。</div>';return}
+ const head='<div class="head"><div>禮拜幾</div><div>時間</div><div>Boss 名稱</div><div>邀請人</div><div>參加成員</div><div></div></div>';
+ $("list").innerHTML=head+rows.map(s=>{
+  const full=s.members.length>=s.max;
+  return `<div class="row${full?' full':''}">
+  <div class="badge">${DAYS[s.day]}</div>
+  <div class="time">${esc(s.time)}</div>
+  <div class="bw"><div class="boss">${esc(s.boss)}</div>${full?'<span class="tag">🔒 滿團</span>':''}</div>
+  <div class="host">${s.host?`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d05635" stroke-width="2"><circle cx="10" cy="7" r="4"/><path d="M3 21c0-4 3-7 7-7 1.5 0 2.800.4 4 1.100"/><path d="M18 14l1.200 2.500 2.800.4-2 2 .5 2.800-2.500-1.300-2.500 1.300.5-2.800-2-2 2.800-.4z" fill="#d05635" stroke="none"/></svg>${esc(s.host)}`:''}</div>
+  <div class="chips">${s.members.map(m=>`<span class="chip">${esc(m)}</span>`).join("")}<span class="cnt">共 ${s.members.length} / ${s.max} 人</span></div>
+  <button class="edit" data-id="${s.id}" aria-label="編輯場次"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4M12 20h8"/></svg></button>
+  </div>`}).join("");
+}
+function open(id){
+ editing=id;const s=data.find(x=>x.id===id)||{day:tab||today,time:"21:00",boss:"",host:"",members:[],max:6};
+ $("dt").textContent=id?"編輯場次":"新增場次";
+ $("fd").value=s.day;$("ft").value=s.time;$("fb").value=s.boss;$("fh").value=s.host;
+ $("fm").value=s.members.join("\n");$("fx").value=s.max;$("del").hidden=!id;
+ $("fp").value=pwd;$("err").textContent="";$("del").textContent="刪除";delArmed=false;$("dlg").showModal();
+}
+$("fd").innerHTML=DAYS.slice(1).map((n,i)=>`<option value="${i+1}">${n}</option>`).join("");
+$("tabs").onclick=e=>{const b=e.target.closest(".tab");if(!b)return;tab=+b.dataset.i;renderTabs();render()};
+$("q").oninput=render;
+$("add").onclick=()=>open(null);
+$("list").onclick=e=>{const b=e.target.closest(".edit");if(b)open(b.dataset.id)};
+$("cancel").onclick=()=>$("dlg").close();
+$("save").onclick=async()=>{
+ if(!$("form").reportValidity())return;
+ const members=$("fm").value.split(/[,，、\n]+/).map(x=>x.trim()).filter(Boolean);
+ const o={day:+$("fd").value,time:$("ft").value,boss:$("fb").value.trim(),host:$("fh").value.trim(),members,max:Math.max(1,+$("fx").value||6)};
+ pwd=$("fp").value;try{localStorage.setItem("raid-pwd",pwd)}catch(e){}
+ $("save").disabled=true;
+ try{const r=await send({action:"save",password:pwd,session:{id:editing||String(Date.now()),...o}});
+  if(!r.ok)$("err").textContent=r.error||"儲存失敗";else{$("dlg").close();await load()}}
+ catch(e){$("err").textContent="儲存失敗，請檢查網路"}
+ $("save").disabled=false;
+};
+let delArmed=false;
+$("del").onclick=async()=>{
+ if(!delArmed){delArmed=true;$("del").textContent="再按一次確認刪除";return}
+ pwd=$("fp").value;
+ try{const r=await send({action:"delete",id:editing,password:pwd});
+  if(!r.ok)$("err").textContent=r.error||"刪除失敗";else{$("dlg").close();await load()}}
+ catch(e){$("err").textContent="刪除失敗，請檢查網路"}
+};
+renderTabs();render();init();
+</script>
+</body>
+</html>
