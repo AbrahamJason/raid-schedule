@@ -126,13 +126,14 @@ function render(){
  if(!rows.length){$("list").innerHTML='<div class="empty">沒有符合的場次。按「＋ 新增場次」建立第一場。</div>';return}
  const head='<div class="head"><div>禮拜幾</div><div>時間</div><div>Boss 名稱</div><div>邀請人</div><div>參加成員</div><div></div></div>';
  $("list").innerHTML=head+rows.map(s=>{
-  const full=s.members.length>=s.max;
+  const total=s.members.length+(s.host?1:0);
+  const full=total>=s.max;
   return `<div class="row${full?' full':''}">
   <div class="badge">${DAYS[s.day]}</div>
   <div class="time">${esc(s.time)}</div>
   <div class="bw"><div class="boss">${esc(s.boss)}</div>${full?'<span class="tag">🔒 滿團</span>':''}</div>
   <div class="host">${s.host?`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d05635" stroke-width="2"><circle cx="10" cy="7" r="4"/><path d="M3 21c0-4 3-7 7-7 1.5 0 2.800.4 4 1.100"/><path d="M18 14l1.200 2.500 2.800.4-2 2 .5 2.800-2.500-1.300-2.500 1.300.5-2.800-2-2 2.800-.4z" fill="#d05635" stroke="none"/></svg>${esc(s.host)}`:''}</div>
-  <div class="chips">${s.members.map(m=>`<span class="chip">${esc(m)}</span>`).join("")}<span class="cnt">共 ${s.members.length} / ${s.max} 人</span></div>
+  <div class="chips">${s.members.map(m=>`<span class="chip">${esc(m)}</span>`).join("")}<span class="cnt">共 ${total} / ${s.max} 人</span></div>
   <button class="edit" data-id="${s.id}" aria-label="編輯場次"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4M12 20h8"/></svg></button>
   </div>`}).join("");
 }
