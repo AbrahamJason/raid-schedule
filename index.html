@@ -14,7 +14,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","
 button,input,select,textarea{font:inherit;color:inherit}
 header{background:var(--bar);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
 .wrap{max-width:960px;margin:0 auto;padding:0 16px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .logo{width:40px;height:40px;border-radius:10px;background:var(--acc);display:grid;place-items:center;flex:none}
 h1{font-size:1.15rem;margin:0;font-weight:800}
@@ -97,7 +97,7 @@ label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
 <script>
 const DAYS=["","週一","週二","週三","週四","週五","週六","週日"];
 const KEY="raid-schedule-v1";
-const APP_URL="PASTE_APPS_SCRIPT_URL_HERE";
+const APP_URL="https://script.google.com/macros/s/AKfycbyKTgB4Lwq8DgkNAlKrviJrPC09VbJs6bV_711d4FilUmhFyEDLpWL69ubHz2MpR9zr/exec";
 let data=[],pwd="";
 try{pwd=localStorage.getItem("raid-pwd")||""}catch(e){}
 async function load(){
